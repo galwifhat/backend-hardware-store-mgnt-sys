@@ -152,15 +152,31 @@ def purchases(session: Session = Depends(get_db)):
     purchasedata = session.querry(Purchases).all()
     return purchasedata
 
-
+# create a purchase
 # http://localhost:8000/purchases"
 @app.post("/purchases")
-def add_purchases(purchases: PurchasesSchema, db: Session = Depends(get_db)):
-    new_purchases = Purchases(**purchases.model_dump())
-    db.add(new_purchases)
+def create_purchases(purchases: PurchasesSchema, db: Session = Depends(get_db)):
+    # calculate total cost
+    total_cost = sum(item.quantity_added * item.unit_cost for item in purchases.items)
+    # Create purchase record
+    db_purchase = Purchases(note=purchases.note, total_cost=total_cost)
+    # Add purchase items
+    for item in purchases.items:
+        db_item = PurchaseItems(
+            product_id=item.product_id,
+            quantity_added=item.quantity_added,
+            unit_cost=item.unit_cost,
+        )
+        db_purchase.items.append(db_item)
+
+    # Commit to database
+    db.add(db_purchase)
     db.commit()
-    db.refresh(new_purchases)
-    return new_purchases
+    # new_purchases = Purchases(**purchases.model_dump())
+    # db.add(new_purchases)
+    # db.commit()
+    # db.refresh(new_purchases)
+    # return new_purchases
 
 
 # http://localhost:8000/salesitemsdata"
