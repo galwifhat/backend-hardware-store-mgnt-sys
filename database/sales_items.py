@@ -1,5 +1,6 @@
 from . import Base
 from sqlalchemy import Column, Integer, Float, ForeignKey
+from sqlalchemy.orm import relationship
 
 
 class Sales_Items(Base):
@@ -9,3 +10,5 @@ class Sales_Items(Base):
     product_id = Column(Integer(), ForeignKey("products.id"))
     quantity_sold = Column(Integer(), nullable=False)
     unit_price = Column(Float(), nullable=False)
+
+    product = relationship("Products", back_populates="sales")

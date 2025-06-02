@@ -1,6 +1,7 @@
 from . import Base
 from sqlalchemy import Column, Integer, DateTime, Text, Float
 from datetime import datetime
+from sqlalchemy.orm import relationship
 
 
 class Purchases(Base):
@@ -9,3 +10,6 @@ class Purchases(Base):
     purchase_date = Column(DateTime, default=datetime.now())
     total_cost = Column(Float())
     note = Column(Text())
+
+    items = relationship("PurchaseItems", back_populates="purchases")
+

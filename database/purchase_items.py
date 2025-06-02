@@ -1,6 +1,7 @@
 from . import Base
 from sqlalchemy import Column, Integer, ForeignKey, DateTime
 from datetime import datetime
+from sqlalchemy.orm import relationship
 
 
 class PurchaseItems(Base):
@@ -11,3 +12,6 @@ class PurchaseItems(Base):
     quantity_added = Column(Integer(), nullable=False)
     unit_cost = Column(Integer(), nullable=False)
     added_at = Column(DateTime, default=datetime.now())
+
+    product = relationship("Products", back_populates="purchases")
+    purchases = relationship("Purchases", back_populates="items")

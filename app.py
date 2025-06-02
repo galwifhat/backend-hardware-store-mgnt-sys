@@ -38,10 +38,21 @@ app.add_middleware(
 
 # http://localhost:8000/productsdata
 @app.get("/productsdata")
-def products(session: Session = Depends(get_db)):
-    # retrieves all products from the table
-    products = session.query(Products).all()
-    # use sqlalchemy to retrieve all products from the db
+def products(
+    brand_id: int = None, category_id: int = None, session: Session = Depends(get_db)
+):
+    query = session.query(Products)
+    if brand_id:
+        query = query.filter(Products.brand_id == brand_id)
+        # products = session.query(Products).filter(Products.brand_id == brand_id).all()
+    if category_id:
+        query = query.filter(Products.category_id == category_id)
+        # products = session.query(Products).filter(Products.category_id == category_id).all()
+    # else:
+    #     products = session.query(Products).all()
+
+    products = query.all() #call .all only once after all the filtering is complete
+
     print({"message": "products retrieved successfully"})
     return products
 
