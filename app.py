@@ -28,6 +28,14 @@ from schemas import (
 
 # initialize
 app = FastAPI()
+
+
+# define routes
+@app.get("/")
+def index():
+    return {"message": "Welcome to my first backend app"}
+
+
 # allow network request from all servers
 app.add_middleware(
     CORSMiddleware,
