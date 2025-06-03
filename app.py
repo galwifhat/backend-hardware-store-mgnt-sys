@@ -35,7 +35,9 @@ app = FastAPI()
 def index():
     return {"message": "Welcome to my first backend app"}
 
-
+origins = [
+    "https://backend-hardware-store-mgnt-sys-5.onrender.com",  # update with actual URL
+]
 # allow network request from all servers
 app.add_middleware(
     CORSMiddleware,

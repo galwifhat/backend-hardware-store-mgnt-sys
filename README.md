@@ -1,10 +1,53 @@
-**Key relationships in my system**
+**Hardware Store Management System**
+https://frontend-hardware-store-mgnt-sys.onrender.com/home
+
+**Owner**
+Developed and maintained by myself!
+
+**Setup Instructions**
+**Prerequisites**
+
+## Softwares, Tools and Technologies
+
+- HTML
+- CSS - Tailwind css
+- React-JS (VUE)
+- Python
+- FastAPI
+- SQLAlchemy ORM
+- SQL
+- VS-CODE
+- Github actions
+- Hosted on render
+- Alembic
+- Mogrations
+
+## Steps to Run the App
+
+- Create a directory and inside that directory:
+
+- git clone https://github.com/galwifhat/backend-hardware-store-mgnt-sys
+
+- git clone https://github.com/galwifhat/backend-hardware-store-mgnt-sys
+
+- cd to frontend-name
+- npm install
+- npm start or npm run dev (vue)
+  _You can modify these commands to match your tech stack._
+
+# Features
+
+- Real-time product filtering
+- Soft delete functionality
+- Stock Management (adding, removing)
+
+# Key relationships in my system
 
 - One-to-Many (Most Common)
 - Many-to-One
 - Many-to-many (I am not implementing this for now)
 
-- I will use back_populates for the bidirectional relationships
+- I will use back_populates/backref for the bidirectional relationships
 
 ## A Brand has many Products (one-to-many)
 
@@ -26,25 +69,24 @@
 
 ## A Product has many PurchaseItems and many SaleItems (one-to-many)
 
-- have a relsp to both salesItems and PurchaseItems
+- have a rlshp to both salesItems and PurchaseItems
 
 # Query Relationships
 
-# Get all products for a brand
+## Get all products for a brand
 
-- (brand referes to a variable just created)
-  brand = session.query(Brands).filter_by(brand_name="Nike").first()
-  for product in brand.products:
-  print(product.product_name)
+## Get all products for a category
 
-      brand.products gives you a list of all Products related to that brand.
-      product.brand gives you the Brands object related to a given product.
+## Get brand from a product
 
-       brand in brand.products refers to the brand variable, which is an instance of the Brands class — it's not referring to the class itself, or the other brand in product.brand
+## Get category from a product
 
-# Output: Air Max, Dry-Fit Tee
+# Operations (CRUD) between tables
 
-# Get brand from a product
+## Create - POST
 
-product = session.query(Products).filter_by(product_name="Air Max").first()
-print(product.brand.brand_name) # Output: Nike
+## Read - GET
+
+## Update - PATCH/PUT
+
+## Delete -DELETE
