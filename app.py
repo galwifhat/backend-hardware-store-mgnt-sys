@@ -2,16 +2,18 @@
 from fastapi import FastAPI, Depends
 from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.orm import Session
+from datetime import datetime
 
 from database.session import get_db
 from database.customers import Customers
 from database.brands import Brands
 from database.category import Categories
 from database.products import Products
-from database.purchase_items import PurchaseItems
+from database.purchaseitems import PurchaseItems
 from database.purchases import Purchases
-from database.sales_items import Sales_Items
+from database.salesitems import Sales_Items
 from database.sales import Sales
+# from database.trash import Trash
 
 from schemas import (
     BrandSchema,
@@ -51,10 +53,12 @@ def products(
     # else:
     #     products = session.query(Products).all()
 
-    products = query.all() #call .all only once after all the filtering is complete
+    products = query.all()  # call .all only once after all the filtering is complete
+
+    # return products
 
     print({"message": "products retrieved successfully"})
-    return products
+    return {"message": "Product Created Successfully", "product": products}
 
 
 # http://localhost:8000/newproducts
@@ -64,8 +68,31 @@ def add_products(product: ProductsSchema, db: Session = Depends(get_db)):
     db.add(new_product)
     db.commit()
     db.refresh(new_product)
-    print({"message": "product created successfully"})
     return new_product
+
+    # return {"message": "Product Created Successfully", "product": new_product}
+
+
+# # `http://localhost:8000/productsdata/${id}`
+# @app.delete("/productsdata/{id}")  # get product by id
+# def delete_product(id: int, db: Session = Depends(get_db)):
+#     # retrieve a specific product by it's id using .get
+#     product = db.get(Products, id)
+#     # get the product
+#     # product = db.query(Products).filter(Products.id == product_id).first()
+#     if not product:
+#         return {"success": False, "message": "Product not found"}
+#     if product.is_deleted:
+#         return {"message": "Product no longer exist, check in Trash"}
+#     # soft deleting, set is_deleted = True to mark the product as deleted
+#     product.is_deleted = True
+
+#     # cretaing a trash entry
+#     deleted = Trash(product_id=product.id, deleted_at=datetime.now())
+#     db.add(deleted)
+#     db.flush()
+#     db.commit()
+#     return {"message": "Product moved to trash", "deleted": deleted}
 
 
 # http://localhost:8000/categorydata"
@@ -151,6 +178,7 @@ def add_purchaseitems(
 def purchases(session: Session = Depends(get_db)):
     purchasedata = session.querry(Purchases).all()
     return purchasedata
+
 
 # create a purchase
 # http://localhost:8000/purchases"

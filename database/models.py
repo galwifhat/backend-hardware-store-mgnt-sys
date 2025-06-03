@@ -4,11 +4,10 @@ from database.customers import Customers
 from database.brands import Brands
 from database.category import Categories
 from database.products import Products
-from database.purchase_items import PurchaseItems
+from database.purchaseitems import PurchaseItems
 from database.purchases import Purchases
-from database.sales_items import Sales_Items
+from database.salesitems import Sales_Items
 from database.sales import Sales
-
+from database.trash import Trash
 
 # importing all other models
-

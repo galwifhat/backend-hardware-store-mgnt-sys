@@ -10,7 +10,7 @@ class Products(Base):
     sku = Column(String(), nullable=False, unique=True)
     brand_id = Column(Integer(), ForeignKey("brands.id"))
     category_id = Column(Integer(), ForeignKey("categories.id"))
-    image_url = Column(String(), default=0)
+    image_url = Column(String(), default="")
     current_stock = Column(Integer)  # current stock = Total Purchase - Total Sold
     is_deleted = Column(Boolean(), default=False)
 
@@ -20,3 +20,4 @@ class Products(Base):
     purchases = relationship("PurchaseItems", back_populates="product", cascade=("all, delete-orphan"))
     sales = relationship("Sales_Items", back_populates="product")
     brand = relationship("Brands", back_populates="products")
+    # Trash.product = relationship("Product", backref="trashed_items")

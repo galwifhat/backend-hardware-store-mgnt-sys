@@ -1,4 +1,5 @@
 from pydantic import BaseModel
+from sqlalchemy import DateTime
 
 
 class BrandSchema(BaseModel):
@@ -45,3 +46,34 @@ class SalesItemsSchema(BaseModel):
 class SalesSchema(BaseModel):
     customer_id: int
     total_amount: float
+
+
+# Method 1
+class TrashSchema(BaseModel):
+    id: int
+    product_id: int
+
+    class Config:
+        orm_mode = True
+
+
+# Method 2
+# the base schema
+# common fields between input and output (like product_id)/shared fields
+# Prevents code duplication.
+
+
+# class TrashBase(BaseModel):
+#     product_id: int
+
+
+# # when creating a new trash record; Input when creating soft delete
+# class TrashCreate(TrashBase):
+#     pass
+# # Output from backend/API; fields: id, product_id, deleted_at
+# class TrashResponse(TrashBase):
+#     id: int
+#     deleted_at: DateTime
+
+#     class Config:
+#         orm_mode = True
