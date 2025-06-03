@@ -3,7 +3,8 @@
 - https://frontend-hardware-store-mgnt-sys.onrender.com/home
 
 ## Owner
-Developed and maintained by myself!
+
+Developed and maintained by myself! (https://github.com/galwifhat)
 
 ## Setup Instructions
 
@@ -35,7 +36,11 @@ Developed and maintained by myself!
 - cd to frontend-name
 - npm install
 - npm start or npm run dev (vue)
-  _You can modify these commands to match your tech stack._
+- _You can modify these commands to match your tech stack._
+- cd to backend-name
+- pipenv install
+- pipenv shell
+- fastapi app.py
 
 ### Features
 
@@ -74,12 +79,14 @@ Developed and maintained by myself!
 - have a rlshp to both salesItems and PurchaseItems
 
 ### Query Relationships
+
 - Get all products for a brand
 - Get all products for a category
 - Get brand from a product
 - Get category from a product
 
 ### Operations (CRUD) between tables
+
 - Create - POST
 - Read - GET
 - Update - PATCH/PUT
